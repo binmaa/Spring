@@ -129,7 +129,7 @@
       <version>1.2</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>javax.servlet.jsp.jstl</artifactId>
       <version>1.2.1</version>
@@ -138,7 +138,7 @@
       <groupId>javax.servlet.jsp.jstl</groupId>
       <artifactId>javax.servlet.jsp.jstl-api</artifactId>
       <version>1.2.1</version>
-    </dependency>
+    </dependency> -->
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
