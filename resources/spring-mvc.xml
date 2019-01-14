@@ -21,15 +21,31 @@
     	<property name="name" value="binmma"/>
     </bean>
     <!-- 配置处理器映射器 -->
-    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
     <!-- 配置处理器适配器 -->
-    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
     <!-- 配置mvc注解驱动 相当于使用最新处理器映射器 处理器适配器 并对Json数据响应提供支持-->
-    <mvc:annotation-driven/>
+    <!-- <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean"/> -->
+    <!-- 自定义转换器下   配置自定义转换器上-->
+    <bean id = "formattingConversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    	<property name="converters">
+    		<set>
+    			<bean class="com.binmma.utils.ConverDate"></bean>
+    			<bean class="com.binmma.utils.ConverString"></bean>
+    			<bean class="com.binmma.utils.ConverInt"></bean>
+    		</set>
+    	</property>
+    </bean>
     <!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     	<property name="prefix" value="/WEB-INF/jsp/"/>
     	<property name="suffix" value=".jsp"/>
     </bean>
-    <!-- <bean id="modelAndView" class="org.springframework.web.servlet.ModelAndView" scope="prototype"/> -->
+    <!-- 全局异常处理 -->
+    <bean class="com.binmma.exception.CustomeException"/>
+    <!-- 多媒体上传 -->
+    <bean id = "multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<!-- 设置文件最大上传限制 -->
+    	<property name="maxUploadSize" value="8388608"></property>
+    </bean>
 </beans>        
