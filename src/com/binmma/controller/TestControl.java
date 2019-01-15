@@ -35,13 +35,13 @@ public class TestControl {
 	@RequestMapping(value = "/testcontrol", method = RequestMethod.GET)
 	public ModelAndView testControl() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("msg", user.getName());
+//		modelAndView.addObject("msg", user.getName());
 		user.setId("1");
 		modelAndView.setViewName("MyJsp");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/testcontrol/{version}", method = RequestMethod.POST)
+	@RequestMapping(value = "/testcontrol/{version}", method = RequestMethod.GET)
 	public String testControl2(@PathVariable("version") String version,
 			User user, @RequestParam("ids") Integer ids, Integer id,
 			ModelAndView modelAndView, Model model, HttpServletRequest request,

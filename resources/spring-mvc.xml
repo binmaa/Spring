@@ -48,4 +48,12 @@
     	<!-- 设置文件最大上传限制 -->
     	<property name="maxUploadSize" value="8388608"></property>
     </bean>
+    <!-- 自定义拦截器 -->
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/user/**"/>
+    		<bean class="com.binmma.customInterceptor.LoginInterceptor"/>
+    	</mvc:interceptor>
+    </mvc:interceptors>
 </beans>        
