@@ -1,11 +1,10 @@
 package com.binmma.customInterceptor;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +21,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         String query = request.getQueryString();
         String method = request.getMethod();
 		if(userName == null){
-			session.setAttribute("beforeUrl", path+"?"+query);
+            if (StringUtils.isNotEmpty(query)) {
+                session.setAttribute("beforeUrl", path + "?" + query);
+            } else {
+                session.setAttribute("beforeUrl", path);
+            }
 			session.setAttribute("method", method);
 			response.sendRedirect(request.getContextPath()+"/user/tologin");
 		}

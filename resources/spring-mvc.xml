@@ -21,11 +21,11 @@
     	<property name="name" value="binmma"/>
     </bean>
     <!-- 配置处理器映射器 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
     <!-- 配置处理器适配器 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
     <!-- 配置mvc注解驱动 相当于使用最新处理器映射器 处理器适配器 并对Json数据响应提供支持-->
-    <!-- <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean"/> -->
+    <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean"/>
     <!-- 自定义转换器下   配置自定义转换器上-->
     <bean id = "formattingConversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
     	<property name="converters">

@@ -2,7 +2,6 @@ package com.binmma.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import com.binmma.model.User;
 
@@ -32,7 +29,7 @@ public class TestControl {
 	@Qualifier("user")
 	private User user;
 
-	@RequestMapping(value = "/testcontrol", method = RequestMethod.GET)
+    @RequestMapping(value = "/testcontrol", method = RequestMethod.POST)
 	public ModelAndView testControl() {
 		ModelAndView modelAndView = new ModelAndView();
 //		modelAndView.addObject("msg", user.getName());

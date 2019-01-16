@@ -27,13 +27,14 @@ public class Login {
 		if ("binmma".equals(userName)) {
 			httpSession.setAttribute("userName", userName);
 		}
-		//返回远url
+        //返回原url
 		Object beforeUrl = httpSession.getAttribute("beforeUrl");
 		Object method = httpSession.getAttribute("method");
-		if (beforeUrl != null) {
+        if (beforeUrl != null && beforeUrl != "") {
 			httpSession.setAttribute("beforeUrl","");
 			if ("GET".equals(method.toString())) {
-				response.sendRedirect(beforeUrl.toString());
+                response.sendRedirect(request.getContextPath()
+                        + beforeUrl.toString());
 			}else{
 				request.getRequestDispatcher((String) beforeUrl).forward(request, response);
 			}

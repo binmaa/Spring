@@ -21,12 +21,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class FirstServlet extends HttpServlet {
+    ThreadLocal l = new ThreadLocal() {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.ThreadLocal#initialValue()
+         */
+        @Override
+        protected Object initialValue() {
+            // TODO Auto-generated method stub
+            return super.initialValue();
+        }
+    };
 
     /**
     	 * Destruction of the servlet. <br>
     	 */
     public void destroy() {
-        System.out.println("servert...init..");
+        System.out.println("servert...init..修改");
         super.destroy(); // Just puts "destroy" string in log
         // Put your code here
     }
@@ -43,6 +55,7 @@ public class FirstServlet extends HttpServlet {
     	 */
     public void doDelete(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+        System.out.println();
 
         // Put your code here
     }
@@ -59,6 +72,12 @@ public class FirstServlet extends HttpServlet {
     	 */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        try {
+            Thread.sleep(1000 * 4);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
@@ -133,6 +152,7 @@ public class FirstServlet extends HttpServlet {
     	 * @throws ServletException if an error occurs
     	 */
     public void init() throws ServletException {
+        System.out.println(this.hashCode());
         System.out.println("servert...init..");
     }
 

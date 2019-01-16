@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div style="margin: auto auto">
-	    <form action="${pageContext.request.contextPath}/user/login" method="get">
+	    <form action="${pageContext.request.contextPath}/user/login" method="post">
 	    	用户名：<input type="text" name = "userName" /><br/>
 	    	密码： <input type="password" name="passWord"/><br/>
 	    	<button type="submit" >登陆</button>
