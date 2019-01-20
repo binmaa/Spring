@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间用于隔离sql -->
+<!-- 
+动态代理开发规则：
+1、namespace 接口全路径名
+2、接口方法名和sql名一致
+3、入参与parameterType一致
+4、返回值与resultType一致
+ -->
+<mapper namespace="com.binmma.mapper.OrderMapper">
+	<resultMap type="Order" id="orderMap">
+		<!-- 主键 -->
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="number" column="number"/>
+		<result property="createtime" column="createtime"/>
+		<result property="note" column="note"/>
+	</resultMap>
+	<select id="getOrderNumbers" parameterType="java.lang.Integer" resultType="int">
+		select count(1) from `order`;
+	</select>
+	<select id="getOrderList" resultType="Order">
+		select id,user_id as userid,number,createtime,note from `order`;
+	</select>
+	<select id="getOrderListMap" resultMap="orderMap">
+		select id,user_id,number,createtime,note from `order`;
+	</select>
+	<resultMap type="com.binmma.model.Order" id="order_user_map">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="number" column="number"/>
+		<result property="createtime" column="createtime"/>
+		<result property="note" column="note"/>
+		<association property="user" javaType="com.binmma.model.User">
+			<id property="id" column="user_id"/>
+			<result property="username" column="username"/>
+			<result property="address" column="address"/>
+			<result property="birthday" column="birthday"/>
+			<result property="sex" column="sex"/>
+			<result property="address" column="address"/>
+			<result property="uuid" column="uuid"/>
+		</association>
+		
+	</resultMap>
+	<select id="getOrderUser" resultMap="order_user_map">
+		SELECT
+			o.id,
+			o.user_id,
+			o.number,
+			o.createtime,
+			o.note,
+			u.id,
+			u.username,
+			u.address,
+			u.birthday,
+			u.sex,
+			u.uuid
+		FROM
+			`order` o
+		LEFT JOIN user u ON o.user_id = u.id;
+	</select>
+</mapper>

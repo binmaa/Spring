@@ -36,7 +36,7 @@ public class TestControl {
 	public ModelAndView testControl() {
 		ModelAndView modelAndView = new ModelAndView();
 //		modelAndView.addObject("msg", user.getName());
-		user.setId("1");
+		user.setIds("1");
 		modelAndView.setViewName("MyJsp");
 		return modelAndView;
 	}

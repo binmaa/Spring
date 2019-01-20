@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间用于隔离sql -->
+<!-- 
+动态代理开发规则：
+1、namespace 接口全路径名
+2、接口方法名和sql名一致
+3、入参与parameterType一致
+4、返回值与resultType一致
+ -->
+<mapper namespace="com.binmma.mapper.UserMapper">
+	<sql id="sqlPd" >
+		id,username,birthday,sex,address,uuid
+	</sql>
+	<select id="getUserByID" parameterType="int" resultType="user">
+		select * from user where id =#{id}
+	</select>
+	<select id="getUserByQueryVo" parameterType="QueryVo" resultType="user">
+		select * from user where username like '%${user.username}%'
+	</select>
+	
+	<select id="getUserByUser" parameterType="User" resultType="user">
+		select 
+			<include refid="sqlPd"/> 
+		from user
+		<where>
+			<if test="username!=null and username != ''">
+				and username like '%${username}%'
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex = #{sex}
+			</if>
+		</where> 
+	</select>
+	
+	<select id="getUserByIds" parameterType="java.util.List" resultType="user">
+		select 
+			<include refid="sqlPd"/> 
+		from user
+		<where>
+			<foreach collection="list" open="id in (" close=")" item="id" separator=",">
+				#{id}
+			</foreach>
+		</where> 
+	</select>
+	<resultMap type="com.binmma.model.User" id="user_order_map">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="address" column="address"/>
+		<result property="birthday" column="birthday"/>
+		<result property="sex" column="sex"/>
+		<result property="address" column="address"/>
+		<result property="uuid" column="uuid"/>
+		<collection property="orders" ofType="Order">
+			<id property="id" column="oid"/>
+			<result property="userId" column="user_id"/>
+			<result property="number" column="number"/>
+			<result property="createtime" column="createtime"/>
+			<result property="note" column="note"/>
+		</collection>
+	</resultMap>
+	<select id="getUserOrders" resultMap="user_order_map">
+		SELECT
+			u.id,
+			u.username,
+			u.address,
+			u.birthday,
+			u.sex,
+			u.uuid,
+			o.id oid,
+			o.user_id,
+			o.number,
+			o.createtime,
+			o.note
+		FROM
+			`user` u
+		LEFT JOIN `order` o ON u.id = o.user_id
+	</select> 
+</mapper>
