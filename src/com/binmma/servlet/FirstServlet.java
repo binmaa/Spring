@@ -22,15 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FirstServlet extends HttpServlet {
     ThreadLocal l = new ThreadLocal() {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.ThreadLocal#initialValue()
-         */
         @Override
         protected Object initialValue() {
             // TODO Auto-generated method stub
-            return super.initialValue();
+            return 1;
         }
     };
 
@@ -73,7 +68,11 @@ public class FirstServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            Thread.sleep(1000 * 4);
+            Thread.sleep(1000 * 1);
+            int count = ((Integer)(l.get())).intValue();
+            System.out.println(count);
+            count ++;
+            l.set(count);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

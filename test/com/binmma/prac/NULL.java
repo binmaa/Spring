@@ -4,7 +4,7 @@
  * Copyright 2019 Thuisoft, Inc. All rights reserved.
  * THUNISOFT PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.binmma.algorithm;
+package com.binmma.prac;
 
 import org.junit.Test;
 
