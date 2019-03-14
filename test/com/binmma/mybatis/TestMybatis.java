@@ -28,9 +28,13 @@ public class TestMybatis {
 	@Test
 	public void getUserByID() {
 		UserMapper userMapper = context.getBean(UserMapper.class);
-		PageHelper.startPage(1, 4);
+		PageHelper.startPage(2, 2);
 		List<User> list = userMapper.getUserByIds(Arrays.asList(1,22,23,24,25,26,27,28,29));
+		User user2 = list.get(0);
 		PageInfo<User> pageInfo = new PageInfo<>(list);
+		List<User> list2 = pageInfo.getList();
+		User user = list.get(0);
+		
 		log.error(list.toString());
 	}
 }
