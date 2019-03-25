@@ -18,7 +18,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- 引入属性文件 -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    	<property name="location" value="classpath:jdbc.properties"/>
+    	<property name="locations">
+    		<list>
+    			<value>classpath:jdbc.properties</value>
+    			<value>classpath:config.properties</value>
+    		</list>
+    	</property>
     </bean>
         <!-- 引入属性文件2 -->
     <!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 集成方式：JobDetailFactoryBean  注：任务类需要继承QuartzJobBean-->
+	<bean id = "jobDetail" class = "org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<!-- 任务结束收是否持久化 -->
+		<!-- <property name="durability" value="true"/> -->
+		<!-- 目标类 -->
+		<property name="jobClass" value="com.binmma.timer.TimerTaskInstance"/>
+		<!-- 添加参数 -->
+		<property name="jobDataMap">
+			<map>
+				<entry key="key" value="value"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 配置任务bean类-->
+	<bean id = "detail" class="com.binmma.timer.ExcutePlan"/>
+	 <!-- 配置方法映射工厂类 -->  
+	<bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="detail"/>
+		<property name="targetMethod" value="plan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<!-- 触发器  -->
+	<!-- 触发器 方式1 CornTrigger-->
+	<bean id ="cornTrigger" class = "org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail2"/>
+		<!-- 每10秒出发一次 -->
+		<property name="cronExpression" value="1 0 14 * * ?"/>
+	</bean>
+	<!-- 触发器 方式2 -->
+<!-- 	<bean id = "simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail"/>
+		<property name="repeatCount" value="5"/>
+		<property name="repeatInterval" value="5000"/>
+		<property name="startDelay" value="5"/>
+	</bean> -->
+	<!-- 定义核心调度器 -->
+	<bean id = "scheduler" class = "org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cornTrigger"/>
+			</list>
+		</property>
+	</bean>
+</beans>

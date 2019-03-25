@@ -17,6 +17,8 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<import resource="spring-mybatis.xml"/>
+	<import resource="spring-schedule.xml"/>
+	<import resource="dubbo-consumer.xml"/>
  
     <context:component-scan base-package="com.binmma.thread"/>
     <context:component-scan base-package="com.binmma.controller"/>
